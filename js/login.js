@@ -17,12 +17,13 @@ function login() {
         contentType: 'application/json',
         data: JSON.stringify(userData),
         success: function (data) {  
-            // Función que se ejecuta si la solicitud es exitosa
-            var viewName = data.views[0].name; 
-            var viewRoute = data.views[0].route;
+            // // Función que se ejecuta si la solicitud es exitosa
+            // var viewName = data.views[0].name; 
+            // var viewRoute = data.views[0].route;
             alert("Acceso concedido");
+            console.log("conse");
             
-            window.location.href = "/view/narver.html"; 
+            window.location.href = "./view/narver.html"; 
 
            
             //alert("Vista obtenida - Nombre: " + viewName + ", Ruta: " + viewRoute);
