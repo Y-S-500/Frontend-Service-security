@@ -13,6 +13,7 @@ if (userData && userData.modules && userData.modules.length > 0) {
     var navbarMenu = document.getElementById('navbarMenu');
 
     // Recorrer cada módulo
+    
     userData.modules.forEach(function(module) {
         var liItem = document.createElement('li');
         liItem.classList.add('nav-item', 'dropdown');
@@ -38,7 +39,7 @@ if (userData && userData.modules && userData.modules.length > 0) {
             var viewRoutes = JSON.parse(module.viewRoute);
 
             // Iterar sobre las vistas y agregarlas al submenú
-           // Iterar sobre las vistas y agregarlas al submenú
+    
 for (var i = 0; i < viewNames.length; i++) {
     var viewName = viewNames[i].trim();
     var viewRoute = viewRoutes[i].trim();
@@ -80,7 +81,7 @@ for (var i = 0; i < viewNames.length; i++) {
     logoutButton.addEventListener('click', function() {
         // Eliminar los datos del usuario del localStorage
         localStorage.removeItem('userData');
-        // Redirigir a la página de inicio de sesión u otra página de su elección
+    
         window.location.href = '../login.html';
     });
     navbarMenu.appendChild(logoutButton);

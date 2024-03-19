@@ -1,8 +1,11 @@
+
 #iframeContainer {
-    width: 100%;
+    display: flex; 
+    flex-direction: column; 
+    min-height: calc(100vh - 50px); 
 }
 
 #contentFrame {
-    max-width: 100%;
-    border: none;
+    flex-grow: 1; 
+    border: none; 
 }
