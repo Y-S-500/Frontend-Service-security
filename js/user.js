@@ -24,6 +24,7 @@ function save() {
         success: function(data) {
           alert("Registro agregado con éxito");
           clearData();
+          loadData();
         },
         error: function(error) {
           alert(`la persona: ${$("#person_id").val()}  ya cuanta con una cuenta de usuario `);
