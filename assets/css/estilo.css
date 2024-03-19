@@ -1,0 +1,8 @@
+#iframeContainer {
+    width: 100%;
+}
+
+#contentFrame {
+    max-width: 100%;
+    border: none;
+}
