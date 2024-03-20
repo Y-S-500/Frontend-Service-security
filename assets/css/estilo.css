@@ -1,0 +1,11 @@
+
+#iframeContainer {
+    display: flex; 
+    flex-direction: column; 
+    min-height: calc(100vh - 50px); 
+}
+
+#contentFrame {
+    flex-grow: 1; 
+    border: none; 
+}
