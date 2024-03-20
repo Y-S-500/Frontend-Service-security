@@ -3,17 +3,14 @@ function save() {
     try {
       
       var data = {
-        "codigo": $("#codigo").val(),
-        "nombre": $("#nombre").val(),
-        "pais":{
-            "id": parseInt($('#pais_id').val())
-        },
+        "code": $("#codigo").val(),
+        "name_country": $("#nombre").val(),
         "state": parseInt($("#estado").val())
       };
   
       var jsonData = JSON.stringify(data);
       $.ajax({
-        url: "http://localhost:9000/service-security/v1/api/departamento",
+        url: "http://localhost:9000/service-security/v1/api/pais",
         method: "POST",
         dataType: "json",
         contentType: "application/json",
@@ -38,14 +35,13 @@ function save() {
     $("#id").val("");
     $("#codigo").val("");
     $("#nombre").val("");
-    $("#pais_id").val("");
     $("#estado").val("");
   }
 
 
   function loadData() {
     $.ajax({
-      url: "http://localhost:9000/service-security/v1/api/departamento",
+      url: "http://localhost:9000/service-security/v1/api/pais",
       method: "GET",
       dataType: "json",
       success: function (response) {
@@ -56,9 +52,8 @@ function save() {
           // Construir el HTML para cada objeto
           html +=
             `<tr>
-                    <td>${item.nombre}</td>
-                    <td>` + item.codigo + `</td>
-                    <td>` + item.pais.nombre_pais + `</td>
+                    <td>${item.name_country}</td>
+                    <td>` + item.code + `</td>
                     <td>` + (item.state == true ? "Activo" : "Inactivo") + `</td>
                     <td> <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="findById(${item.id})"> <img src="../assets/icon/pencil-square.svg" > </button>
                     <button type="button" class="btn btn-primary" onclick="deleteById(${item.id})"> <img src="../assets/icon/trash3.svg" > </button></td>
@@ -74,34 +69,10 @@ function save() {
     });
   }
 
-  function loadPais() {
-    $.ajax({
-      url: "http://localhost:9000/service-security/v1/api/pais",
-      method: "GET",
-      dataType: "json",
-      success: function (response) {
-        var html = "";
-        if (response.status && Array.isArray(response.data)) {
-            console.log(response.data);
-            response.data.forEach(function (item) {
-              // Construir el HTML para cada objeto
-              html += `<option value="${item.id}">${item.nombre_pais}</option>`;
-            });
-            $("#pais_id").html(html);
-          } else {
-            console.error("Error: No se pudo obtener la lista de roles.");
-          }
-      },
-      error: function (error) {
-        // Función que se ejecuta si hay un error en la solicitud
-        console.error("Error en la solicitud:", error);
-      },
-    });
-  }
 
   function deleteById(id) {
     $.ajax({
-      url: "http://localhost:9000/service-security/v1/api/departamento/" + id,
+      url: "http://localhost:9000/service-security/v1/api/pais/" + id,
       method: "delete",
       headers: {
         "Content-Type": "application/json",
@@ -117,18 +88,15 @@ function save() {
     // Construir el objeto data
     try{
       var data = {
-        "codigo": $("#codigo").val(),
-        "nombre": $("#nombre").val(),
-        "pais":{
-            "id": parseInt($('#pais_id').val())
-        },
+        "code": $("#codigo").val(),
+        "name_country": $("#nombre").val(),
         "state": parseInt($("#estado").val())
       };
       
       var id = $("#id").val();
       var jsonData = JSON.stringify(data);
       $.ajax({
-        url: "http://localhost:9000/service-security/v1/api/departamento/" + id,
+        url: "http://localhost:9000/service-security/v1/api/pais/" + id,
         data: jsonData,
         method: "PUT",
         headers: {
@@ -158,15 +126,14 @@ function save() {
 
   function findById(id) {
     $.ajax({
-      url: "http://localhost:9000/service-security/v1/api/departamento/" + id,
+      url: "http://localhost:9000/service-security/v1/api/pais/" + id,
       method: "GET",
       dataType: "json",
       success: function (response) {
         var data=response.data;
         $("#id").val(data.id);
-        $("#codigo").val(data.codigo);
-        $('#nombre').val(data.nombre);
-        $('#pais_id').val(data.pais.id);
+        $("#codigo").val(data.code);
+        $('#nombre').val(data.name_country);
         $("#estado").val(data.state == true ? 1 : 0);
   
         //Cambiar boton.
