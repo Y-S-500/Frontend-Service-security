@@ -49,6 +49,7 @@ function save() {
                 response.data.forEach(function(person) {
                     html += `<option value="${person.person}" data-person-id="${person.id}">`;
                 });
+                console.log(person.id);
                 $("#persons").html(html);
 
                 // Asignar el ID de la persona seleccionada al campo oculto cuando se selecciona una opción del datalist
@@ -114,7 +115,9 @@ function save() {
         var html = "";
         var data = response.data;
         data.forEach(function (item) {
-          // Construir el HTML para cada objeto
+        
+          if (!item.deletedAt) { // Verificar si el campo deletedAt es nulo (no eliminado lógicamente)
+           
           html +=
             `<tr>
                     <td>${item.username}</td>
@@ -125,9 +128,11 @@ function save() {
                     <td> <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="findById(${item.id})"> <img src="../assets/icon/pencil-square.svg" > </button>
                     <button type="button" class="btn btn-primary" onclick="deleteById(${item.id})"> <img src="../assets/icon/trash3.svg" > </button></td>
                 </tr>`;
-        });
-  
+              }
+            });
+      
         $("#resultData").html(html);
+      
       },
       error: function (error) {
         // Función que se ejecuta si hay un error en la solicitud
