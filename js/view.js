@@ -3,17 +3,15 @@ function save() {
     try {
       
       var data = {
-        "code": $("#codigo").val(),
-        "name_country": $("#nombre").val(),
-        "department":{
-            "id": parseInt($('#departamento_id').val())
-        },
+        "name": $("#nombre").val(),
+        "route": $("#ruta").val(),
+        "description": $("#descripcion").val(),
         "state": parseInt($("#estado").val())
       };
   
       var jsonData = JSON.stringify(data);
       $.ajax({
-        url: "http://localhost:9000/service-security/v1/api/ciudad",
+        url: "http://localhost:9000/service-security/v1/api/view",
         method: "POST",
         dataType: "json",
         contentType: "application/json",
@@ -36,9 +34,9 @@ function save() {
 
   function clearData() {
     $("#id").val("");
-    $("#codigo").val("");
+    $("#ruta").val("");
     $("#nombre").val("");
-    $("#departamento_id").val("");
+    $("#descripcion").val("");
     $("#estado").val("");
     var btnAgregar = $('button[name="btnAgregar"]');
         btnAgregar.text("Agregar");
@@ -48,7 +46,7 @@ function save() {
 
   function loadData() {
     $.ajax({
-      url: "http://localhost:9000/service-security/v1/api/ciudad",
+      url: "http://localhost:9000/service-security/v1/api/view",
       method: "GET",
       dataType: "json",
       success: function (response) {
@@ -60,9 +58,9 @@ function save() {
           if (!item.deletedAt) {
           html +=
             `<tr>
-                    <td>${item.name_country}</td>
-                    <td>` + item.code + `</td>
-                    <td>` + item.department.name + `</td>
+                    <td>${item.name}</td>
+                    <td>` + item.description + `</td>
+                    <td>` + item.route + `</td>
                     <td>` + (item.state == true ? "Activo" : "Inactivo") + `</td>
                     <td> <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="findById(${item.id})"> <img src="../assets/icon/pencil-square.svg" > </button>
                     <button type="button" class="btn btn-primary" onclick="deleteById(${item.id})"> <img src="../assets/icon/trash3.svg" > </button></td>
@@ -79,34 +77,10 @@ function save() {
     });
   }
 
-  function loadDepartamento() {
-    $.ajax({
-      url: "http://localhost:9000/service-security/v1/api/departamento",
-      method: "GET",
-      dataType: "json",
-      success: function (response) {
-        var html = "";
-        if (response.status && Array.isArray(response.data)) {
-            console.log(response.data);
-            response.data.forEach(function (item) {
-              // Construir el HTML para cada objeto
-              html += `<option value="${item.id}">${item.name}</option>`;
-            });
-            $("#departamento_id").html(html);
-          } else {
-            console.error("Error: No se pudo obtener la lista de roles.");
-          }
-      },
-      error: function (error) {
-        // Función que se ejecuta si hay un error en la solicitud
-        console.error("Error en la solicitud:", error);
-      },
-    });
-  }
 
   function deleteById(id) {
     $.ajax({
-      url: "http://localhost:9000/service-security/v1/api/ciudad/" + id,
+      url: "http://localhost:9000/service-security/v1/api/view/" + id,
       method: "delete",
       headers: {
         "Content-Type": "application/json",
@@ -122,18 +96,16 @@ function save() {
     // Construir el objeto data
     try{
       var data = {
-        "code": $("#codigo").val(),
-        "name_country": $("#nombre").val(),
-        "department":{
-            "id": parseInt($('#departamento_id').val())
-        },
+        "name": $("#nombre").val(),
+        "route": $("#ruta").val(),
+        "description": $("#descripcion").val(),
         "state": parseInt($("#estado").val())
       };
       
       var id = $("#id").val();
       var jsonData = JSON.stringify(data);
       $.ajax({
-        url: "http://localhost:9000/service-security/v1/api/ciudad/" + id,
+        url: "http://localhost:9000/service-security/v1/api/view/" + id,
         data: jsonData,
         method: "PUT",
         headers: {
@@ -163,15 +135,15 @@ function save() {
 
   function findById(id) {
     $.ajax({
-      url: "http://localhost:9000/service-security/v1/api/ciudad/" + id,
+      url: "http://localhost:9000/service-security/v1/api/view/" + id,
       method: "GET",
       dataType: "json",
       success: function (response) {
         var data=response.data;
         $("#id").val(data.id);
-        $("#codigo").val(data.code);
-        $('#nombre').val(data.name_country);
-        $('#departamento_id').val(data.department.id);
+        $("#ruta").val(data.route);
+        $('#nombre').val(data.name);
+        $('#descripcion').val(data.description);
         $("#estado").val(data.state == true ? 1 : 0);
   
         //Cambiar boton.
@@ -185,3 +157,5 @@ function save() {
       },
     });
   }
+
+  
