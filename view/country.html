@@ -28,7 +28,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content" style="width: 140%; height: 150%; ">
           <div class="modal-header">
-              <h1 class="modal-title fs-5" id="staticBackdropLabel">Registro</h1>
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Record</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="clearData();"> </button>
             </div>
             <div class="modal-body" >
@@ -38,7 +38,7 @@
                             <fieldset class="formulario">
                                 <legend>Pais</legend>
                                 <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Nombre</label>
+                                    <label class="col-sm-2 col-form-label">Name</label>
                                     <div class="col-sm-10">
                                         <input type="hidden" name="id" id="id" value="">
                                         <input type="text" class="form-control" name="nombre" id="nombre" value=""
@@ -52,7 +52,7 @@
                               <br>    
                             </div>
                             
-                            <label class="col-sm-2 col-form-label">Código</label>
+                            <label class="col-sm-2 col-form-label">Code</label>
                             <div class="col-sm-10">
                                         <input type="text" class="form-control" name="codigo" id="codigo" value=""
                                         required  placeholder="Ingresar codigo">
@@ -65,13 +65,13 @@
                                         <br>    
                                     </div>
                                     
-                                    <label class="col-sm-2 col-form-label">Estado</label>
+                                    <label class="col-sm-2 col-form-label">Estate</label>
                                     <div class="col-sm-10">
               
                                         <select class="form-select" id="estado">
-                                            <option selected>--Seleccione--</option>
-                                            <option value="1">Activo</option>
-                                            <option value="0">Inactivo</option>
+                                            <option selected>--select--</option>
+                                            <option value="1">asset</option>
+                                            <option value="0">idle</option>
                                         </select>
                                         <br>
                                     </div>
@@ -80,7 +80,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="clearData()">Close</button>
+                        <button type="button" name="btnCloced" class="btn btn-secondary"   data-bs-dismiss="modal" onclick="clearData()">Close</button>
                             <br>
                             <button name="btnAgregar" class="btn btn-primary" type="button" onclick="save()" data-bs-dismiss="modal">Agregar</button>
                         </div>
