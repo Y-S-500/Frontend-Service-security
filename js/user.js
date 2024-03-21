@@ -130,7 +130,7 @@ function save() {
                     <td><ul>` + item.role.reduce((accumulator, currentValue) => accumulator + (`<li>${ currentValue.name }</li>`), '',) + `</ul></td>
                     <td>` + (item.state == true ? "Activo" : "Inactivo") + `</td>
                     <td> <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="findById(${item.id})"> <img src="../assets/icon/pencil-square.svg" > </button>
-                    <button type="button" class="btn btn-primary" onclick="deleteById(${item.id})"> <img src="../assets/icon/trash3.svg" > </button></td>
+                    <button type="button" class="btn btn-secundary" style="background-color: red;" onclick="deleteById(${item.id})"> <img src="../assets/icon/trash3.svg" > </button></td>
                 </tr>`;
           };
         });

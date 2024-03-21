@@ -10,3 +10,46 @@
     flex-grow: 1; 
     border: none; 
 }
+.btn-secundary{
+   
+    background-color: red;
+}
+.btn-primary{
+    background-color: blue;
+}
+
+.new{
+    position: relative;
+    float: right;
+    height: 43px;
+    color: green;
+}
+
+
+#iframeContainer {
+    width: 100%;
+  
+  }
+  
+  #iframeContainer .iframe {
+    width: 100%;
+    border: none;
+  }
+  
+
+  .welcome{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    margin: 0;
+    padding: 0;
+    min-width: 100vw;
+    min-height: 100vh;
+    width: 100%;
+    height: 100%;
+    
+    background-image: url(../img/welcome.jpg);
+    background-position: center;
+    background-size: cover;
+  }

@@ -73,6 +73,7 @@ function User(id) {
         
         clearData();
         loadData();
+        window.location.href = '../login.html';
       },
       error: function(error) {
         alert(`La persona: ${$("#person_id").val()} ya cuenta con una cuenta de usuario`);
