@@ -6,7 +6,7 @@ function save() {
       return;
     }
 
-    var data = {
+    var personData = {
       "firstName": $("#firstName").val(),
       "lastName": $("#lastName").val(),
       "email": $("#email").val(),
@@ -20,18 +20,21 @@ function save() {
       "state": true
     };
 
-    console.log(data.city);
-
-    var jsonData = JSON.stringify(data);
+ 
     $.ajax({
       url: "http://localhost:9000/service-security/v1/api/person",
       method: "POST",
       dataType: "json",
       contentType: "application/json",
-      data: jsonData,
+      data: JSON.stringify(personData),
       success: function(data) {
-        alert("Registro agregado con éxito");
+        var id = data.id
+        console.log(data.data);
+      
+
+        alert("Registro agregado con éxito" +id);
         clearData();
+        loadData();
       },
       error: function(error) {
         alert(`La persona: ${$("#person_id").val()} ya cuenta con una cuenta de usuario`);
@@ -41,7 +44,15 @@ function save() {
   } catch (error) {
     console.error("Error obteniendo el cliente:", error);
   }
+
+ 
 }
+
+
+
+
+
+
 
 function loadCity() {
   console.log("ejecutando loadCity");
@@ -96,6 +107,9 @@ function clearData() {
  
   $("#estado").val("");
 }
+
+
+
 function loadData() {
   console.log("ejecutando loadData");
   $.ajax({
@@ -107,29 +121,27 @@ function loadData() {
       var html = "";
       var data = response.data;
       data.forEach(function (item) {
+        // Construir el HTML para cada objeto
         if (!item.deletedAt) { // Verificar si el campo deletedAt es nulo (no eliminado lógicamente)
-          // Construir el HTML para cada objeto
-          html +=
-            `<tr>
-              <td>${item.firstName}</td>
-              <td>${item.lastName}</td>
-              <td>${item.email}</td>
-              <td>${item.phone}</td>
-              <td>${item.dateOfBirth}</td>
-              <td>${item.gender}</td>
-              <td>${item.address}</td>
-              <td>${item.city.name_city}</td>
-              <td>${item.deletedAt ? "Eliminado" : "Activo"}</td>
-              <td>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="findById(${item.id})">
-                  <img src="../assets/icon/pencil-square.svg">
-                </button>
-                <button type="button" class="btn btn-primary" onclick="deleteById(${item.id})">
-                  <img src="../assets/icon/trash3.svg">
-                </button>
-              </td>
-            </tr>`;
-        }
+
+        html +=
+          `<tr>
+                  <td>${item.firstName}</td>
+                  <td>` + item.lastName + `</td>
+                  <td>` + item.email + `</td>
+                  <td>` + item.phone + `</td>
+                  <td>` + item.dateOfBirth + `</td>
+                  <td>` + item.gender + `</td>
+                  <td>` + item.address + `</td>
+                  <td>` + item.city.name_city + `</td>
+                  
+            
+                  <td>` + (item.state == true ? "Activo" : "Inactivo") + `</td>
+                  <td> <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="findById(${item.id})"> <img src="../assets/icon/pencil-square.svg" > </button>
+                  <button type="button" class="btn btn-primary" onclick="deleteById(${item.id})"> <img src="../assets/icon/trash3.svg" > </button></td>
+              </tr>`;
+                       
+                       };
       });
 
       $("#resultData").html(html);

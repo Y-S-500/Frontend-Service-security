@@ -120,6 +120,8 @@ function save() {
         var data = response.data;
         data.forEach(function (item) {
           // Construir el HTML para cada objeto
+          if (!item.deletedAt) { // Verificar si el campo deletedAt es nulo (no eliminado lógicamente)
+
           html +=
             `<tr>
                     <td>${item.username}</td>
@@ -130,8 +132,9 @@ function save() {
                     <td> <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="findById(${item.id})"> <img src="../assets/icon/pencil-square.svg" > </button>
                     <button type="button" class="btn btn-primary" onclick="deleteById(${item.id})"> <img src="../assets/icon/trash3.svg" > </button></td>
                 </tr>`;
+          };
         });
-  
+      
         $("#resultData").html(html);
       
       },

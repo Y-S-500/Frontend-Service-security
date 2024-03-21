@@ -81,7 +81,7 @@ function save() {
 
   function loadPais() {
     $.ajax({
-      url: "http://localhost:9000/service-security/v1/api/city",
+      url: "http://localhost:9000/service-security/v1/api/country",
       method: "GET",
       dataType: "json",
       success: function (response) {
