@@ -26,7 +26,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="width: 150%; height: 150%; ">
               <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Registro</h1>
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Record</h1>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="clearData();"></button>
                 </div>
                 <div class="modal-body" >
@@ -34,9 +34,9 @@
                         <div id="inputdata">
                             <form class="row g-3 needs-validation" novalidate*class="row g-3 needs-validation" novalidate>
                                 <fieldset class="formulario">
-                                    <legend>Ciudad</legend>
+                                    <legend>City</legend>
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Nombre</label>
+                                        <label class="col-sm-2 col-form-label">Name</label>
                                         <div class="col-sm-10">
                                             <input type="hidden" name="id" id="id" value="">
                                             <input type="text" class="form-control" name="nombre" id="nombre" value=""
@@ -50,7 +50,7 @@
                                   <br>    
                                 </div>
                                 
-                                <label class="col-sm-2 col-form-label">Código</label>
+                                <label class="col-sm-2 col-form-label">Code</label>
                                 <div class="col-sm-10">
                                             <input type="text" class="form-control" name="codigo" id="codigo" value=""
                                             required  placeholder="Ingresar codigo">
@@ -63,23 +63,23 @@
                                             <br>    
                                         </div>
 
-                                        <label class="col-sm-2 col-form-label" for="validationCustom04">Departamento</label>
+                                        <label class="col-sm-2 col-form-label" for="validationCustom04">Department</label>
                                     <div class="col-sm-10">
                                         
                                         <select class="form-select" id="departamento_id" required>
-                                            <option selected disabled value="">--Seleccione--</option>
+                                            <option selected disabled value="">--select--</option>
                                             
                                         </select>
                                         <br>
                                     </div>
                                         
-                                        <label class="col-sm-2 col-form-label">Estado</label>
+                                        <label class="col-sm-2 col-form-label">Estae</label>
                                         <div class="col-sm-10">
                   
                                             <select class="form-select" id="estado">
-                                                <option selected>--Seleccione--</option>
-                                                <option value="1">Activo</option>
-                                                <option value="0">Inactivo</option>
+                                                <option selected>--select--</option>
+                                                <option value="1">asset</option>
+                                                <option value="0">idle</option>
                                             </select>
                                             <br>
                                         </div>
@@ -88,7 +88,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="clearData()">Close</button>
+                            <button type="button" name="btnCloced" class="btn btn-secondary" data-bs-dismiss="modal" onclick="clearData()">Close</button>
                                 <br>
                                 <button name="btnAgregar" class="btn btn-primary" type="button" onclick="save()" data-bs-dismiss="modal">Agregar</button>
                             </div>
