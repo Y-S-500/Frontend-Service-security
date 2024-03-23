@@ -1,5 +1,20 @@
 
 function save() {
+  
+  var selectedOptions = $("#multiple-select-field").val();
+
+    // Mapear los valores seleccionados a un array de objetos
+    var viewData = selectedOptions.map(function(option) {
+      return { "id": parseInt(option) };
+  });
+
+  // Convertir el array de objetos a una cadena separada por comas
+  var viewDataString = viewData.map(function(obj) {
+      return JSON.stringify(obj);
+  }).join(',');
+
+  // Parsear la cadena resultante de nuevo a un array de objetos JSON
+  var viewDataArray = JSON.parse('[' + viewDataString + ']');
     
     try {
       
@@ -9,9 +24,7 @@ function save() {
         "person":{
             "id":parseInt($("#selected_person_id").val())
         } ,
-        "role":[{
-            "id":parseInt($("#role_id").val())
-        } ],
+        "role": viewDataArray,
         "state": parseInt($("#estado").val())
       };
   
@@ -46,20 +59,26 @@ function save() {
         dataType: "json",
         success: function (response) {
             if (response.status && Array.isArray(response.data)) {
-                var html = "";
-                response.data.forEach(function(person) {
-                    html += `<option value="${person.person}" data-person-id="${person.id}">`;
-                });
-                console.log(person.id);
-                $("#persons").html(html);
-
-                // Asignar el ID de la persona seleccionada al campo oculto cuando se selecciona una opción del datalist
-                $("#person_id").on("input", function() {
-                    var selectedPersonId = $("#persons option[value='" + $(this).val() + "']").data("person-id");
-                    $("#selected_person_id").val(selectedPersonId);
-                });
+              var persons = response.data.map(function(person) {
+                return {
+                  label: person.person,
+                  value: person.id // Agrega el ID como valor
+                };
+              });
+      
+              // Inicializar el autocompletado en el campo de entrada de texto
+              $("#person_id").autocomplete({
+                source: persons,
+                select: function(event, ui) {
+                  // Al seleccionar un elemento del autocompletado, guarda el ID en un campo oculto
+                  $("#selected_person_id").val(ui.item.value);
+                  // Actualiza el valor del campo de entrada con el nombre de la persona seleccionada
+                  $("#person_id").val(ui.item.label);
+                  return false; // Evita la propagación del evento y el formulario de envío
+                }
+              });
             } else {
-                console.error("Error: No se pudo obtener la lista de persons.");
+              console.error("Error: No se pudo obtener la lista de ciudades.");
             }
         },
         error: function (error) {
@@ -70,6 +89,8 @@ function save() {
 }
 
 
+
+
   function loadRole() {
     $.ajax({
       url: "http://localhost:9000/service-security/v1/api/role",
@@ -78,14 +99,14 @@ function save() {
       success: function (response) {
         var html = "";
         if (response.status && Array.isArray(response.data)) {
-            response.data.forEach(function (item) {
-              // Construir el HTML para cada objeto
-              html += `<option value="${item.id}">${item.name}</option>`;
-            });
-            $("#role_id").html(html);
-          } else {
-            console.error("Error: No se pudo obtener la lista de roles.");
-          }
+          response.data.forEach(function (item) {
+            // Construir el HTML para cada objeto
+            html += `<option value="${item.id}">${item.name}</option>`;
+          });
+          $("#multiple-select-field").html(html);
+        } else {
+          console.error("Error: No se pudo obtener la lista de roles.");
+        }
       },
       error: function (error) {
         // Función que se ejecuta si hay un error en la solicitud
@@ -162,6 +183,21 @@ function save() {
 
   function update() {
     // Construir el objeto data
+    var selectedOptions = $("#multiple-select-field").val();
+
+    // Mapear los valores seleccionados a un array de objetos
+    var viewData = selectedOptions.map(function(option) {
+      return { "id": parseInt(option) };
+  });
+
+  // Convertir el array de objetos a una cadena separada por comas
+  var viewDataString = viewData.map(function(obj) {
+      return JSON.stringify(obj);
+  }).join(',');
+
+  // Parsear la cadena resultante de nuevo a un array de objetos JSON
+  var viewDataArray = JSON.parse('[' + viewDataString + ']');
+
     try{
       var data = {
         "username": $("#ussername").val(),
@@ -169,9 +205,7 @@ function save() {
         "person":{
             "id":parseInt($("#selected_person_id").val())
         } ,
-        "role":[{
-            "id":parseInt($("#role_id").val())
-        } ],
+        "role": viewDataArray,
         "state": parseInt($("#estado").val())
       };
       
@@ -218,7 +252,21 @@ function save() {
         $('#password').val(data.password);
         $("#selected_person_id").val(data.person.id);
         $("#person_id").val(data.person.firstName+" "+data.person.lastName);
-        $("#role_id").val(data.role[0].id);
+        // Extraer los valores de 'id' de cada objeto en data.view
+        var selectedValues = data.role.map(function(item) {
+          return item.id;
+      });
+      
+      // Deseleccionar todas las opciones primero
+      $('#multiple-select-field option').prop('selected', false);
+      
+      // Seleccionar las opciones correspondientes
+      selectedValues.forEach(function(value) {
+          $('#multiple-select-field option[value="' + value + '"]').prop('selected', true);
+      });
+      
+      // Trigger evento change para actualizar visualización
+      $('#multiple-select-field').trigger('change');
         $("#estado").val(data.state == true ? 1 : 0);
   
         //Cambiar boton.

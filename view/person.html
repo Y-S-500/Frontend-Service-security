@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Person</title>
-    <link rel="stylesheet" href="../assets/css/">
+    <link rel="stylesheet" href="../assets/css/estyle.css">
 
  
     <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/litera/bootstrap.min.css" rel="stylesheet">
@@ -42,6 +42,7 @@
 
   
   <!-- Modal -->
+  <legend>Person</legend>
   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content" style="width: 140%; height: 150%; ">
@@ -110,8 +111,8 @@
                                               
                                             <label class="col-sm-2 col-form-label">dateOfBirth</label>
                                             <div class="col-sm-10">
-                                                        <input type="text" class="form-control" name="dateOfBirth" id="dateOfBirth" value=""
-                                                        required  placeholder="enter the dateOfBirth  aaaa/mm/dd">
+                                                <input type="date" class="form-control" name="date_of_birth" id="dateOfBirth" value="" placeholder="Date of birth">
+                                            
                                                         <div class="valid-feedback">
                                                             Looks good!
                                                         </div>
@@ -122,17 +123,19 @@
                                                     </div>    
                                             
                                                     <label class="col-sm-2 col-form-label">gender</label>
-                                                    <div class="col-sm-10">
-                                                                <input type="text" class="form-control" name="gender" id="gender" value=""
-                                                                required  placeholder="enter the gender">
-                                                                <div class="valid-feedback">
-                                                                    Looks good!
-                                                                </div>
-                                                                <div class="invalid-feedback">
-                                                                    Ingrese el codigo.
-                                                                </div>
-                                                                <br>    
-                                                            </div>       
+                                            <div class="col-sm-10">
+                                                <select class="form-select" id="gender">
+                                                    <option value="M">Masculino</option>
+                                                    <option value="F">Femenino</option>
+                                                </select>
+                                                <div class="valid-feedback">
+                                                    Looks good!
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    Ingrese el codigo.
+                                                </div>
+                                                <br>
+                                            </div>     
                                                             
                                                      
                                             <label class="col-sm-2 col-form-label">address</label>
@@ -150,20 +153,11 @@
                                     
                                   
                                                     <label class="col-sm-2 col-form-label" for="city_id">city: </label>
-                                                    <div class="col-sm-10">
-                                                        <input type="hidden" id="selected_city_id" name="selected_city_id" value="">
-                                                        <input type="text" list="citys" class="form-control" name="city_id" id="city_id">
-                                                        <datalist id="citys">
-                                                          </datalist>
-                                                        
-                                                        <div class="valid-feedback">
-                                                            Looks good!
-                                                          </div>
-                                                          <div class="invalid-feedback">
-                                                            Ingrese el codigo.
-                                                              </div>
-                                                          <br>  
-                                                    </div>
+                                            <div class="col-sm-10">
+                                                <input type="hidden" id="selected_city_id" name="selected_city_id"
+                                                    value="">
+                                                <input type="text" list="city_id" class="form-control" name="city_id"
+                                                    id="city_id">
                                     
                                     </div>
               
@@ -171,7 +165,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="clearData()">Close</button>
+                            <button type="button" name="btnCloced" class="btn btn-secondary" data-bs-dismiss="modal" onclick="clearData()">Close</button>
                             <br>
                             <button name="btnAgregar" class="btn btn-primary" type="button" onclick="save()" data-bs-dismiss="modal">Agragar</button>
                         </div>
@@ -208,14 +202,10 @@
 
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script type="application/javascript" src="../js/person.js"></script>
+  </script>
 
   <script>
-    $(document).ready(function() {
-        // Llamar a loadPerson() al intentar agregar una persona en el campo de entrada 'person'
-        $("#city_id").on("input", function() {
-            loadCity();
-        });
-    });
+        loadCity();
         loadData();
         </script>
     

@@ -53,3 +53,20 @@
     background-position: center;
     background-size: cover;
   }
+
+  .btn-close{
+    background-color: red;
+  }
+  
+  button[name="btnAgregar"]:hover {
+    /* Estilos al pasar el mouse sobre el botón */
+    background-color: #1ed30e; /* Color de fondo más oscuro */
+  }
+
+  button[name="btnCloced"]:hover{
+    background-color: red;
+  }
+
+ .ui-autocomplete{
+  z-index: 9999 !important;
+ }

@@ -4,7 +4,13 @@ function save() {
   try {
     var selectedCityId = parseInt($("#selected_city_id").val());
     if (isNaN(selectedCityId) || selectedCityId === null) {
-      console.error("ID de ciudad no válido");
+      Swal.fire({
+        title: "Oops!",
+        text: "failed registration city!",
+        icon: "error",
+        timer: 2000, 
+        buttons: false 
+    });
       return;
     }
 
@@ -69,11 +75,18 @@ function User(id) {
       contentType: "application/json",
       data: jsonData,
       success: function(data) {
-        alert("Registro agregado con éxito");
         
-        clearData();
-        loadData();
+        Swal.fire({
+          title: "Perfect!",
+          text: "Successful registration!",
+          icon: "success",
+          timer: 2000, 
+          buttons: false 
+      }).then(()=>{
         window.location.href = '../login.html';
+      });
+        
+        
       },
       error: function(error) {
         alert(`La persona: ${$("#person_id").val()} ya cuenta con una cuenta de usuario`);
@@ -85,42 +98,43 @@ function User(id) {
 }
 
   
-  function loadCity() {
-    console.log("ejecutando loadCity");
-    $.ajax({
-      url: "http://localhost:9000/service-security/v1/api/city/list",
-      method: "GET",
-      dataType: "json",
-      success: function (response) {
-        if (response.status && Array.isArray(response.data)) {
-          var html = "";
-          response.data.forEach(function (city) {
-            html += `<option value="${city.name_city}" data-city-id="${city.id}">${city.name_city}</option>`;
-            // Recorrer la lista de ciudades y mostrar su ID
-            console.log(`ID de ${city.name_city}: ${city.id}`);
-          });
-          $("#citys").html(html);
-  
-          // Asignar el ID de la ciudad seleccionada al campo oculto cuando se selecciona una opción del datalist
-          $("#city_id").on("input", function () {
-            var selectedCityId = parseInt($("#citys option[value='" + $(this).val() + "']").data("city-id"));
-            if (!isNaN(selectedCityId)) {
-              $("#selected_city_id").val(selectedCityId);
-              console.log("ID de ciudad seleccionada: " + selectedCityId);
-            } else {
-              console.error("ID de ciudad no válido");
-            }
-          });
-        } else {
-          console.error("Error: No se pudo obtener la lista de ciudades.");
-        }
-      },
-      error: function (error) {
-        // Función que se ejecuta si hay un error en la solicitud
-        console.error("Error en la solicitud:", error);
-      },
-    });
-  }
+function loadCity() {
+  console.log("ejecutando loadCity");
+  $.ajax({
+    url: "http://localhost:9000/service-security/v1/api/city/list",
+    method: "GET",
+    dataType: "json",
+    success: function (response) {
+      if (response.status && Array.isArray(response.data)) {
+        var cities = response.data.map(function (city) {
+          return {
+            label: city.name_city,
+            value: city.id // Agrega el ID como valor
+          };
+        });
+
+        // Inicializar el autocompletado en el campo de entrada de texto
+        $("#city_id").autocomplete({
+          source: cities,
+          select: function (event, ui) {
+            // Al seleccionar un elemento del autocompletado, guarda el ID en un campo oculto
+            $("#selected_city_id").val(ui.item.value);
+            // Actualiza el valor del campo de entrada con el nombre de la persona seleccionada
+            $("#city_id").val(ui.item.label);
+            console.log("ID de ciudad seleccionada: " + ui.item.value);
+            return false; // Evita la propagación del evento y el formulario de envío
+          }
+        });
+      } else {
+        console.error("Error: No se pudo obtener la lista de ciudades.");
+      }
+    },
+    error: function (error) {
+      // Función que se ejecuta si hay un error en la solicitud
+      console.error("Error en la solicitud:", error);
+    },
+  });
+}
   
   
   

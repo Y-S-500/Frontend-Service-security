@@ -3,8 +3,8 @@ function save() {
     try {
       
       var data = {
-        "code_country": $("#codigo").val(),
-        "name_country": $("#nombre").val(),
+        "code": $("#codigo").val(),
+        "name": $("#nombre").val(),
         "state": parseInt($("#estado").val())
       };
   
@@ -56,8 +56,8 @@ function save() {
           if (!item.deletedAt) {
           html +=
             `<tr>
-                    <td>${item.name_country}</td>
-                    <td>` + item.code_country + `</td>
+                    <td>${item.name}</td>
+                    <td>` + item.code + `</td>
                     <td>` + (item.state == true ? "Activo" : "Inactivo") + `</td>
                     <td> <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="findById(${item.id})"> <img src="../assets/icon/pencil-square.svg" > </button>
                     <button type="button" class="btn btn-secundary" onclick="deleteById(${item.id})"> <img src="../assets/icon/trash3.svg" > </button></td>
@@ -93,8 +93,8 @@ function save() {
     // Construir el objeto data
     try{
       var data = {
-        "code_country": $("#codigo").val(),
-        "name_country": $("#nombre").val(),
+        "code": $("#codigo").val(),
+        "name": $("#nombre").val(),
         "state": parseInt($("#estado").val())
       };
       
@@ -137,8 +137,8 @@ function save() {
       success: function (response) {
         var data=response.data;
         $("#id").val(data.id);
-        $("#codigo").val(data.code_country);
-        $('#nombre').val(data.name_country);
+        $("#codigo").val(data.code);
+        $('#nombre').val(data.name);
         $("#estado").val(data.state == true ? 1 : 0);
   
         //Cambiar boton.

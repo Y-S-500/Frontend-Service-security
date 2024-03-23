@@ -3,8 +3,8 @@ function save() {
     try {
       
       var data = {
-        "code_department": $("#codigo").val(),
-        "name_department": $("#nombre").val(),
+        "code": $("#codigo").val(),
+        "name": $("#nombre").val(),
         "country":{
             "id": parseInt($('#pais_id').val())
         },
@@ -60,9 +60,9 @@ function save() {
           if (!item.deletedAt) {
           html +=
             `<tr>
-                    <td>${item.name_department}</td>
-                    <td>` + item.code_department + `</td>
-                    <td>` + item.country.name_country + `</td>
+                    <td>${item.name}</td>
+                    <td>` + item.code + `</td>
+                    <td>` + item.country.name + `</td>
                     <td>` + (item.state == true ? "Activo" : "Inactivo") + `</td>
                     <td> <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="findById(${item.id})"> <img src="../assets/icon/pencil-square.svg" > </button>
                     <button type="button" class="btn btn-secundary" onclick="deleteById(${item.id})"> <img src="../assets/icon/trash3.svg" > </button></td>
@@ -90,7 +90,7 @@ function save() {
             console.log(response.data);
             response.data.forEach(function (item) {
               // Construir el HTML para cada objeto
-              html += `<option value="${item.id}">${item.name_country}</option>`;
+              html += `<option value="${item.id}">${item.name}</option>`;
             });
             $("#pais_id").html(html);
           } else {
@@ -122,8 +122,8 @@ function save() {
     // Construir el objeto data
     try{
       var data = {
-        "code_department": $("#codigo").val(),
-        "name_department": $("#nombre").val(),
+        "code": $("#codigo").val(),
+        "name": $("#nombre").val(),
         "country":{
             "id": parseInt($('#pais_id').val())
         },
@@ -169,8 +169,8 @@ function save() {
       success: function (response) {
         var data=response.data;
         $("#id").val(data.id);
-        $("#codigo").val(data.code_department);
-        $('#nombre').val(data.name_department);
+        $("#codigo").val(data.code);
+        $('#nombre').val(data.name);
         $('#pais_id').val(data.country.id);
         $("#estado").val(data.state == true ? 1 : 0);
   

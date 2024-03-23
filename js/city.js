@@ -3,8 +3,8 @@ function save() {
     try {
       
       var data = {
-        "code_city": $("#codigo").val(),
-        "name_city": $("#nombre").val(),
+        "code": $("#codigo").val(),
+        "name": $("#nombre").val(),
         "department":{
             "id": parseInt($('#departamento_id').val())
         },
@@ -22,6 +22,8 @@ function save() {
           alert("Registro agregado con éxito");
           clearData();
           loadData();
+
+     
         },
         error: function(error) {
           alert(`Error no se pudo realizar el registro.`);
@@ -60,9 +62,9 @@ function save() {
           if (!item.deletedAt) {
           html +=
             `<tr>
-                    <td>${item.name_city}</td>
-                    <td>` + item.code_city + `</td>
-                    <td>` + item.department.name_department + `</td>
+                    <td>${item.name}</td>
+                    <td>` + item.code + `</td>
+                    <td>` + item.department.name + `</td>
                     <td>` + (item.state == true ? "Activo" : "Inactivo") + `</td>
                     <td> <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="findById(${item.id})"> <img src="../assets/icon/pencil-square.svg" > </button>
                     <button type="button" class="btn btn-secundary" onclick="deleteById(${item.id})"> <img src="../assets/icon/trash3.svg" > </button></td>
@@ -90,7 +92,7 @@ function save() {
             console.log(response.data);
             response.data.forEach(function (item) {
               // Construir el HTML para cada objeto
-              html += `<option value="${item.id}">${item.name_department}</option>`;
+              html += `<option value="${item.id}">${item.name}</option>`;
             });
             $("#departamento_id").html(html);
           } else {
@@ -122,8 +124,8 @@ function save() {
     // Construir el objeto data
     try{
       var data = {
-        "code_city": $("#codigo").val(),
-        "name_city": $("#nombre").val(),
+        "code": $("#codigo").val(),
+        "name": $("#nombre").val(),
         "department":{
             "id": parseInt($('#departamento_id').val())
         },
@@ -169,8 +171,8 @@ function save() {
       success: function (response) {
         var data=response.data;
         $("#id").val(data.id);
-        $("#code").val(data.code_city);
-        $('#name').val(data.name_country);
+        $("#code").val(data.code);
+        $('#name').val(data.name);
         $('#departamento_id').val(data.department.id);
         $("#estado").val(data.state == true ? 1 : 0);
   
